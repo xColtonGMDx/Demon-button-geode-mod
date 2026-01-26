@@ -16,7 +16,7 @@ jobs:
 
     - name: Install Geode SDK
       run: |
-        curl -fsSL https://raw.githubusercontent.com/geode-sdk/geode/main/install.sh | bash
+        curl -fsSL https://geode-sdk.org/install.sh | bash
         echo "$HOME/.geode/bin" >> $GITHUB_ENV
 
     - name: Build mod

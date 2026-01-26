@@ -15,7 +15,7 @@ class $modify(HiButtonMenuLayer, MenuLayer) {
 
         // First try ID-based lookup (newer GD versions)
         title = this->getChildByID("game-title");
-
+// build
         // Fallback: search for the logo sprite manually
         if (!title) {
             CCArray* children = this->getChildren();

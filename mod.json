@@ -1,0 +1,10 @@
+{
+  "geode": "1.0.0",
+  "id": "xcoltongmdx.demon_button",
+  "name": "Extreme Hi Button",
+  "version": "v1.0.0",
+  "description": "Adds a Demon face button that says hi. simple. my first mod.",
+  "authors": ["xColtonGMDx"],
+  "platforms": ["android", "windows"],
+  "entry": "main.cpp"
+}

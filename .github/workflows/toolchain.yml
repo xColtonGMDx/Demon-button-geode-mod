@@ -14,6 +14,10 @@ jobs:
         repository: geode-sdk/geode
         submodules: recursive
 
+    - name: Download Geode CLI
+      run: |
+        curl -L -o geode.exe https://github.com/geode-sdk/cli/releases/latest/download/geode.exe
+
     - name: Install dependencies
       run: |
         choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
@@ -23,7 +27,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -G "Ninja" -DGEODE_BUILD_TOOLCHAIN=ON
+        cmake .. -G "Ninja" -DGEODE_BUILD_TOOLCHAIN=ON -DGEODE_CLI_PATH=../geode.exe
         ninja toolchain
 
     - name: Upload toolchain

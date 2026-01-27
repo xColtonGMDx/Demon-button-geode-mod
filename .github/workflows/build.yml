@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+#if this fails one more time I give up
 jobs:
   build:
     runs-on: windows-latest
@@ -14,15 +14,25 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Download Geode CLI from Release
+    - name: Download Geode CLI
       run: |
         curl -L -o geode.exe https://github.com/xColtonGMDx/Demon-button-geode-mod/releases/download/Beans/geode.exe
 
-    - name: Verify CLI exists
-      run: dir
+    - name: Download toolchain artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: geode-toolchain
+        path: cross-tools
+
+    - name: Verify files
+      run: |
+        echo "Workspace contents:"
+        dir
+        echo "Toolchain contents:"
+        dir cross-tools
 
     - name: Build mod
-      run: ./geode.exe build
+      run: ./geode.exe build --toolchain ./cross-tools
 
     - name: Upload built mod
       uses: actions/upload-artifact@v4

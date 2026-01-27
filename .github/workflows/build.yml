@@ -20,7 +20,7 @@ jobs:
         echo "PATH=$PWD/tools:$PATH" >> $GITHUB_ENV
 
     - name: Build mod
-      run: geode build --all
+      run: geode build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

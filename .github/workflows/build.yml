@@ -25,7 +25,7 @@ jobs:
       run: geode.exe build
 
     - name: Upload built mod
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: mod
         path: build/*.geode

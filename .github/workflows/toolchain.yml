@@ -27,7 +27,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -G "Ninja" -DGEODE_BUILD_TOOLCHAIN=ON -DGEODE_CLI_PATH=../geode.exe
+        cmake .. -G "Ninja" -DGEODE_BUILD_TOOLCHAIN=ON -DGEODE_CLI="${{ github.workspace }}\\geode.exe"
         ninja toolchain
 
     - name: Upload toolchain

@@ -1,0 +1,33 @@
+name: Build Geode Toolchain
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-toolchain:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Geode SDK
+      uses: actions/checkout@v3
+      with:
+        repository: geode-sdk/geode
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+        choco install ninja --yes
+
+    - name: Build toolchain
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Ninja" -DGEODE_BUILD_TOOLCHAIN=ON
+        ninja toolchain
+
+    - name: Upload toolchain
+      uses: actions/upload-artifact@v4
+      with:
+        name: geode-toolchain
+        path: build/cross-tools

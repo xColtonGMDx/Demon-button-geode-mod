@@ -24,6 +24,9 @@ jobs:
         chmod +x tools/geode
         echo "PATH=$PWD/tools:$PATH" >> $GITHUB_ENV
 
+    - name: Initialize Geode toolchain
+      run: geode setup
+
     - name: Build mod
       run: |
         export GEODE_SDK_TOOLCHAIN=native

@@ -1,5 +1,5 @@
 name: Build Geode Mod
-#silly comment
+
 on:
   push:
     branches: [ "main" ]
@@ -17,7 +17,7 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt update
-        sudo apt install -y cmake build-essential
+        sudo apt install -y cmake build-essential gcc g++ make
 
     - name: Make Geode CLI executable
       run: |

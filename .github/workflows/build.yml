@@ -14,11 +14,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Install Geode CLI manually
+    - name: Make Geode CLI executable
       run: |
-        curl -L -o geode-cli.zip https://github.com/geode-sdk/geode/releases/download/v3.7.2/geode-cli-v3.7.2-linux.zip
-        unzip geode-cli.zip -d geode-cli
-        echo "$PWD/geode-cli" >> $GITHUB_ENV
+        chmod +x tools/geode
+        echo "$PWD/tools" >> $GITHUB_ENV
 
     - name: Build mod
       run: geode build --all

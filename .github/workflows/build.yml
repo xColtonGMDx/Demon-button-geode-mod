@@ -14,6 +14,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Install build dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y cmake build-essential
+
     - name: Make Geode CLI executable
       run: |
         chmod +x tools/geode

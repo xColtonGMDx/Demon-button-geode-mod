@@ -18,11 +18,11 @@ jobs:
       run: |
         curl -L -o geode.exe https://github.com/xColtonGMDx/Demon-button-geode-mod/releases/download/Beans/geode.exe
 
-    - name: Add CLI to PATH
-      run: echo "$PWD" >> $GITHUB_PATH
+    - name: Verify CLI exists
+      run: dir
 
     - name: Build mod
-      run: geode.exe build
+      run: ./geode.exe build
 
     - name: Upload built mod
       uses: actions/upload-artifact@v4

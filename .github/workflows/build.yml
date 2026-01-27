@@ -25,7 +25,9 @@ jobs:
         echo "PATH=$PWD/tools:$PATH" >> $GITHUB_ENV
 
     - name: Build mod
-      run: geode build -- --toolchain native
+      run: |
+        export GEODE_SDK_TOOLCHAIN=native
+        geode build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

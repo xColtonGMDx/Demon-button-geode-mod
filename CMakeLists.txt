@@ -3,11 +3,10 @@ project(DemonButton)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# Correct include path for your manually-installed SDK
 include_directories(
     ${CMAKE_SOURCE_DIR}
-    /root/geode-sdk/sdk/loader/include
-    /root/geode-sdk/sdk/loader/include/Geode
-    /root/geode-sdk/sdk/loader/include/link
+    /root/geode-sdk/include
 )
 
 add_library(DemonButton SHARED

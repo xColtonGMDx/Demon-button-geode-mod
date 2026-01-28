@@ -5,14 +5,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/../geode-sdk/sdk/include
+    /root/geode-sdk/sdk/loader/include
 )
 
 add_library(DemonButton SHARED
     src/main.cpp
 )
-
-# Optional: link against GeodeLoader if needed
-# target_link_libraries(DemonButton
-#     ${CMAKE_SOURCE_DIR}/../geode-sdk/sdk/lib/libGeodeLoader.a
-# )

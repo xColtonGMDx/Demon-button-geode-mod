@@ -19,12 +19,18 @@ jobs:
         sudo apt update
         sudo apt install -y cmake ninja-build clang zip unzip
 
-    - name: Install Android NDK 26 using official action
+    - name: Install Android NDK 26
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26d
 
-    - name: Download Geode CLI (v3.6.0)
+    - name: Download Geode SDK
+      run: |
+        mkdir -p tools
+        curl -L https://github.com/geode-sdk/geode/releases/download/v3.6.0/geode-sdk-linux.zip -o sdk.zip
+        unzip sdk.zip -d tools/geode-sdk
+
+    - name: Download Geode CLI
       run: |
         curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.6.0/geode-cli-v3.6.0-linux.zip
         unzip geode.zip -d geode

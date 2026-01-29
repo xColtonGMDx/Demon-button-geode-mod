@@ -3,10 +3,9 @@ project(DemonButton)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Load Geode SDK
-include(${CMAKE_SOURCE_DIR}/tools/geode-sdk/cmake/Geode.cmake)
+# Use the SDK installed by the Geode CLI
+include($ENV{HOME}/.local/share/Geode/sdk/cmake/Geode.cmake)
 
-# Create the mod
 add_geode_mod(DemonButton
     SOURCES
         src/main.cpp

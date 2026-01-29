@@ -18,16 +18,12 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y cmake ninja-build clang zip unzip
-#don't fail
+
     - name: Download Geode CLI
       run: |
         curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.7.2/geode-cli-v3.7.2-linux.zip
         unzip geode.zip -d geode
         chmod +x geode/geode
-
-    - name: Generate toolchain
-      run: |
-        ./geode/geode setup
 
     - name: Build mod
       run: |

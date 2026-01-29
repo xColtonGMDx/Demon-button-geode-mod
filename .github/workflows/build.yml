@@ -19,9 +19,9 @@ jobs:
         sudo apt update
         sudo apt install -y cmake ninja-build clang zip unzip
 
-    - name: Download Geode CLI
+    - name: Download Geode CLI (v3.6.0)
       run: |
-        curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.7.2/geode-cli-v3.7.2-linux.zip
+        curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.6.0/geode-cli-v3.6.0-linux.zip
         unzip geode.zip -d geode
         chmod +x geode/geode
 

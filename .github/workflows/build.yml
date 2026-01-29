@@ -25,9 +25,11 @@ jobs:
         unzip geode.zip -d geode
         chmod +x geode/geode
 
-    - name: Build mod
-      run: |
-        ./geode/geode build
+    - name: Clean build folder
+      run: rm -rf build
+
+    - name: Build mod (force Android)
+      run: ./geode/geode build --platform android
 
     - name: Upload built mod
       uses: actions/upload-artifact@v4

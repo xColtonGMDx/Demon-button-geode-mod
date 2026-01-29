@@ -5,34 +5,33 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-#if this fails one more time I give up
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y cmake ninja-build clang zip unzip
+#don't fail
     - name: Download Geode CLI
       run: |
-        curl -L -o geode.exe https://github.com/xColtonGMDx/Demon-button-geode-mod/releases/download/Beans/geode.exe
+        curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.7.2/geode-cli-v3.7.2-linux.zip
+        unzip geode.zip -d geode
+        chmod +x geode/geode
 
-    - name: Download toolchain artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: geode-toolchain
-        path: cross-tools
-
-    - name: Verify files
+    - name: Generate toolchain
       run: |
-        echo "Workspace contents:"
-        dir
-        echo "Toolchain contents:"
-        dir cross-tools
+        ./geode/geode setup
 
     - name: Build mod
-      run: ./geode.exe build --toolchain ./cross-tools
+      run: |
+        ./geode/geode build
 
     - name: Upload built mod
       uses: actions/upload-artifact@v4

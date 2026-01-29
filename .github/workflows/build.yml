@@ -29,10 +29,10 @@ jobs:
         mkdir -p tools/geode-sdk
         curl -L https://github.com/geode-sdk/geode/archive/refs/heads/main.zip -o geode-src.zip
         unzip -q geode-src.zip
-        mv geode-main/sdk/include tools/geode-sdk/include
-        mv geode-main/sdk/cmake tools/geode-sdk/cmake
-        mv geode-main/sdk/bindings tools/geode-sdk/bindings
-        mv geode-main/sdk/sdk tools/geode-sdk/sdk
+        mv geode-main/include tools/geode-sdk/include
+        mv geode-main/cmake tools/geode-sdk/cmake
+        mv geode-main/bindings tools/geode-sdk/bindings
+        mv geode-main/sdk tools/geode-sdk/sdk
 
     - name: Download Geode CLI (v3.6.0)
       run: |

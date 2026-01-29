@@ -24,15 +24,11 @@ jobs:
       with:
         ndk-version: r26d
 
-    - name: Download Geode SDK from source
+    - name: Download Geode SDK 3.6.0
       run: |
         mkdir -p tools/geode-sdk
-        curl -L https://github.com/geode-sdk/geode/archive/refs/heads/main.zip -o geode-src.zip
-        unzip -q geode-src.zip
-        mv geode-main/include tools/geode-sdk/include
-        mv geode-main/cmake tools/geode-sdk/cmake
-        mv geode-main/bindings tools/geode-sdk/bindings
-        mv geode-main/sdk tools/geode-sdk/sdk
+        curl -L https://github.com/geode-sdk/geode/releases/download/v3.6.0/geode-sdk-linux.zip -o sdk.zip
+        unzip -q sdk.zip -d tools/geode-sdk
 
     - name: Download Geode CLI (v3.6.0)
       run: |

@@ -13,9 +13,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install Geode CLI
+      - name: Download Geode CLI
         run: |
-          powershell -Command "iwr https://geode-sdk.org/install.ps1 -UseBasicParsing | iex"
+          iwr https://github.com/geode-sdk/cli/releases/download/v3.7.3/geode-cli-v3.7.3-win.zip -OutFile geode.zip
+          Expand-Archive geode.zip -DestinationPath geode-cli
+
+      - name: Add CLI to PATH
+        run: echo "$env:GITHUB_WORKSPACE\geode-cli" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
       - name: Generate SDK
         run: geode sdk generate

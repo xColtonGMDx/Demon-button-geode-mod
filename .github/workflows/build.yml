@@ -23,10 +23,16 @@ jobs:
 
       - name: Create Geode profile manually
         run: |
-          $profileDir = "$env:APPDATA\geode\profiles"
+          $app = $env:APPDATA
+          $profileDir = Join-Path $app "geode\profiles"
           New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
+
           $json = "{`"name`": `"default`", `"path`": `"$env:GITHUB_WORKSPACE`"}"
-          $json | Out-File -FilePath "$profileDir\default.json" -Encoding utf8
+          $json | Out-File -FilePath (Join-Path $profileDir "default.json") -Encoding utf8
+
+          Write-Host "Profile created at: $profileDir"
+          Write-Host "Profile content:"
+          Get-Content (Join-Path $profileDir "default.json")
 
       - name: Install Geode SDK
         run: geode sdk install

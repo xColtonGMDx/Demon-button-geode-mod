@@ -21,8 +21,16 @@ jobs:
       - name: Add CLI to PATH
         run: echo "$env:GITHUB_WORKSPACE\geode-cli" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
-      - name: Setup Geode profile (non-interactive)
-        run: geode config setup --name default --path "$env:GITHUB_WORKSPACE"
+      - name: Create Geode profile manually
+        run: |
+          $profileDir = "$env:APPDATA\geode\profiles"
+          New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
+          @"
+{
+  "name": "default",
+  "path": "$env:GITHUB_WORKSPACE"
+}
+"@ | Out-File -FilePath "$profileDir\default.json" -Encoding utf8
 
       - name: Install Geode SDK
         run: geode sdk install

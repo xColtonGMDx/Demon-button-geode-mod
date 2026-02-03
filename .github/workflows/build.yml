@@ -36,17 +36,17 @@ jobs:
           $json = "{`"name`": `"default`", `"path`": `"$env:GITHUB_WORKSPACE`"}"
 
           $paths = @(
-            Join-Path $env:APPDATA "geode\profiles",
-            Join-Path $env:LOCALAPPDATA "geode\profiles",
-            Join-Path $env:USERPROFILE "AppData\Roaming\geode\profiles",
-            Join-Path $env:USERPROFILE "AppData\Local\geode\profiles"
+            "$env:APPDATA\geode\profiles",
+            "$env:LOCALAPPDATA\geode\profiles",
+            "$env:USERPROFILE\AppData\Roaming\geode\profiles",
+            "$env:USERPROFILE\AppData\Local\geode\profiles"
           )
 
           Write-Host "=== Creating profiles in all possible locations ==="
 
           foreach ($p in $paths) {
             New-Item -ItemType Directory -Force -Path $p | Out-Null
-            $file = Join-Path $p "default.json"
+            $file = "$p\default.json"
             $json | Out-File -FilePath $file -Encoding utf8
             Write-Host "Created: $file"
           }
@@ -54,7 +54,7 @@ jobs:
           Write-Host ""
           Write-Host "=== Listing created profiles ==="
           foreach ($p in $paths) {
-            $file = Join-Path $p "default.json"
+            $file = "$p\default.json"
             if (Test-Path $file) {
               Write-Host "--- $file ---"
               Get-Content $file

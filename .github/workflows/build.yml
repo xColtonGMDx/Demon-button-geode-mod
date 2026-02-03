@@ -1,4 +1,4 @@
-name: Build Geode Mod
+name: Build Geode Mod (Debug Profiles)
 
 on:
   push:
@@ -21,20 +21,47 @@ jobs:
       - name: Add CLI to PATH
         run: echo "$env:GITHUB_WORKSPACE\geode-cli" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
-      - name: Create Geode profile manually
+      - name: Debug Geode profile search paths
         run: |
-          $app = $env:APPDATA
-          $profileDir = Join-Path $app "geode\profiles"
-          New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
+          Write-Host "=== ENVIRONMENT PATHS ==="
+          Write-Host "APPDATA: $env:APPDATA"
+          Write-Host "LOCALAPPDATA: $env:LOCALAPPDATA"
+          Write-Host "USERPROFILE: $env:USERPROFILE"
+          Write-Host ""
+          Write-Host "=== GEODE CONFIG LIST OUTPUT ==="
+          geode config list
 
+      - name: Create Geode profiles in ALL possible locations
+        run: |
           $json = "{`"name`": `"default`", `"path`": `"$env:GITHUB_WORKSPACE`"}"
-          $json | Out-File -FilePath (Join-Path $profileDir "default.json") -Encoding utf8
 
-          Write-Host "Profile created at: $profileDir"
-          Write-Host "Profile content:"
-          Get-Content (Join-Path $profileDir "default.json")
+          $paths = @(
+            Join-Path $env:APPDATA "geode\profiles",
+            Join-Path $env:LOCALAPPDATA "geode\profiles",
+            Join-Path $env:USERPROFILE "AppData\Roaming\geode\profiles",
+            Join-Path $env:USERPROFILE "AppData\Local\geode\profiles"
+          )
 
-      - name: Install Geode SDK
+          Write-Host "=== Creating profiles in all possible locations ==="
+
+          foreach ($p in $paths) {
+            New-Item -ItemType Directory -Force -Path $p | Out-Null
+            $file = Join-Path $p "default.json"
+            $json | Out-File -FilePath $file -Encoding utf8
+            Write-Host "Created: $file"
+          }
+
+          Write-Host ""
+          Write-Host "=== Listing created profiles ==="
+          foreach ($p in $paths) {
+            $file = Join-Path $p "default.json"
+            if (Test-Path $file) {
+              Write-Host "--- $file ---"
+              Get-Content $file
+            }
+          }
+
+      - name: Try installing Geode SDK
         run: geode sdk install
 
       - name: Configure CMake

@@ -1,49 +1,33 @@
-name: Build Mod
+name: Build Geode Mod
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y cmake ninja-build clang zip unzip
+      - name: Install Geode CLI
+        run: |
+          powershell -Command "iwr https://geode-sdk.org/install.ps1 -UseBasicParsing | iex"
 
-    - name: Install Android NDK 26
-      uses: nttld/setup-ndk@v1
-      with:
-        ndk-version: r26d
+      - name: Generate SDK
+        run: geode sdk generate
 
-    - name: Download Geode SDK 3.6.0
-      run: |
-        mkdir -p tools/geode-sdk
-        curl -L https://github.com/geode-sdk/geode/releases/download/v3.6.0/geode-sdk-linux.zip -o sdk.zip
-        unzip -q sdk.zip -d tools/geode-sdk
+      - name: Configure build
+        run: cmake -B build -G Ninja
 
-    - name: Download Geode CLI (v3.6.0)
-      run: |
-        curl -L -o geode.zip https://github.com/geode-sdk/cli/releases/download/v3.6.0/geode-cli-v3.6.0-linux.zip
-        unzip geode.zip -d geode
-        chmod +x geode/geode
+      - name: Build mod
+        run: cmake --build build --config Release
 
-    - name: Clean build folder
-      run: rm -rf build
-
-    - name: Build mod
-      run: ./geode/geode build --platform android
-
-    - name: Upload built mod
-      uses: actions/upload-artifact@v4
-      with:
-        name: mod
-        path: build/*.geode
+      - name: Upload mod artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DemonButton
+          path: build/*.geode

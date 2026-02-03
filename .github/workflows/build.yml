@@ -10,8 +10,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Download Geode CLI
         run: |
@@ -21,10 +21,13 @@ jobs:
       - name: Add CLI to PATH
         run: echo "$env:GITHUB_WORKSPACE\geode-cli" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
-      - name: instsll SDK
+      - name: Setup Geode profile (non-interactive)
+        run: geode config setup --name default --path "$env:GITHUB_WORKSPACE"
+
+      - name: Install Geode SDK
         run: geode sdk install
 
-      - name: Configure build
+      - name: Configure CMake
         run: cmake -B build -G Ninja
 
       - name: Build mod

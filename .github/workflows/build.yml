@@ -25,12 +25,8 @@ jobs:
         run: |
           $profileDir = "$env:APPDATA\geode\profiles"
           New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
-          @"
-{
-  "name": "default",
-  "path": "$env:GITHUB_WORKSPACE"
-}
-"@ | Out-File -FilePath "$profileDir\default.json" -Encoding utf8
+          $json = "{`"name`": `"default`", `"path`": `"$env:GITHUB_WORKSPACE`"}"
+          $json | Out-File -FilePath "$profileDir\default.json" -Encoding utf8
 
       - name: Install Geode SDK
         run: geode sdk install

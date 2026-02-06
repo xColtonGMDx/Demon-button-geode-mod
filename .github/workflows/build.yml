@@ -19,7 +19,7 @@ jobs:
           sudo apt install -y ninja-build cmake clang g++
 
       - name: Configure CMake (uwu)
-        run: cmake -B build -G Ninja -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real"
+        run: cmake -S . -B build -G Ninja -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real"
 
       - name: Build mod (nyaaaa)
         run: cmake --build build --config Release

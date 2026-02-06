@@ -1,4 +1,4 @@
-name: Build Geode Mod
+name: Build Geode Mod (nya~)
 
 on:
   push:
@@ -7,23 +7,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # no more Fedora queue hell >:3
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo (meow)
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install build deps (rawr)
         run: |
-          sudo dnf install -y ninja-build cmake gcc-c++ clang
+          sudo apt update
+          sudo apt install -y ninja-build cmake clang g++
 
-      - name: Configure CMake
+      - name: Configure CMake (uwu)
         run: cmake -B build -G Ninja -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real"
 
-      - name: Build mod
+      - name: Build mod (nyaaaa)
         run: cmake --build build --config Release
 
-      - name: Upload mod artifact
+      - name: Upload artifact (mlem)
         uses: actions/upload-artifact@v4
         with:
           name: DemonButton

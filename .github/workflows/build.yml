@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # no more Fedora queue hell >:3
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo (meow)
@@ -16,10 +16,18 @@ jobs:
       - name: Install build deps (rawr)
         run: |
           sudo apt update
-          sudo apt install -y ninja-build cmake clang g++
+          sudo apt install -y ninja-build cmake clang g++ unzip wget
+
+      - name: Install Android NDK r27d (important!!)
+        run: |
+          wget https://developer.android.com/ndk/downloads/android-ndk-r27d-linux.zip
+          unzip android-ndk-r27d-linux.zip
+          mv android-ndk-r27d $HOME/android-ndk
 
       - name: Configure CMake (uwu)
-        run: cmake -S . -B build -G Ninja -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real"
+        run: cmake -S . -B build -G Ninja \
+          -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real" \
+          -DANDROID_NDK="$HOME/android-ndk"
 
       - name: Build mod (nyaaaa)
         run: cmake --build build --config Release

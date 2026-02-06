@@ -1,13 +1,15 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.16)
 project(DemonButton)
 
+# tell Geode what platform this is
+set(GEODE_PLATFORM "Linux")
+
+# tell CMake where your SDK folder is
 set(GEODE_SDK_PATH "${CMAKE_SOURCE_DIR}/Geode-sdk-real")
 
-include(${GEODE_SDK_PATH}/cmake/Platform.cmake)
-include(${GEODE_SDK_PATH}/cmake/GeodeFile.cmake)
+# load the SDK CMake files
+include("${GEODE_SDK_PATH}/cmake/Platform.cmake")
+include("${GEODE_SDK_PATH}/cmake/GeodeFile.cmake")
 
-add_library(${PROJECT_NAME} SHARED
-    src/main.cpp
-)
-
-geode_add_mod(${PROJECT_NAME})
+# build your mod
+add_geode_mod(DemonButton src/main.cpp)

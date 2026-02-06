@@ -7,41 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: fedora-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Geode CLI via winget
+      - name: Install dependencies
         run: |
-          winget install -e --id GeodeSDK.GeodeCLI --accept-source-agreements --accept-package-agreements
-
-      - name: Debug Geode CLI + profile paths
-        run: |
-          Write-Host "APPDATA: $env:APPDATA"
-          Write-Host "LOCALAPPDATA: $env:LOCALAPPDATA"
-          Write-Host "USERPROFILE: $env:USERPROFILE"
-          geode --version
-          geode config list
-
-      - name: Create Geode profile (non-portable install)
-        run: |
-          $profileDir = "$env:APPDATA\geode\profiles"
-          New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
-
-          $json = "{`"name`": `"default`", `"path`": `"$env:GITHUB_WORKSPACE`"}"
-          $json | Out-File -FilePath "$profileDir\default.json" -Encoding utf8
-
-          Write-Host "Created profile at:"
-          Write-Host "$profileDir\default.json"
-          Get-Content "$profileDir\default.json"
-
-      - name: Install Geode SDK
-        run: geode sdk install
+          sudo dnf install -y ninja-build cmake gcc-c++ clang
 
       - name: Configure CMake
-        run: cmake -B build -G Ninja
+        run: cmake -B build -G Ninja -DGEODE_SDK_PATH="${{ github.workspace }}/Geode-sdk-real"
 
       - name: Build mod
         run: cmake --build build --config Release

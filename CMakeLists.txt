@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(DemonButton)
 
-# tell Geode what platform this is
-set(GEODE_TARGET_PLATFORM "Linux")
+# You are building an ANDROID mod
+set(GEODE_TARGET_PLATFORM "Android64")
 
 # tell CMake where your SDK folder is
 set(GEODE_SDK_PATH "${CMAKE_SOURCE_DIR}/Geode-sdk-real")

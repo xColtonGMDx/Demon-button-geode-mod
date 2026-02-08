@@ -4,15 +4,17 @@ project(DemonButton)
 # You are building an ANDROID mod
 set(GEODE_TARGET_PLATFORM "Android64")
 
-# tell CMake where your SDK folder is
+# Tell CMake where your SDK folder is
 set(GEODE_SDK_PATH "${CMAKE_SOURCE_DIR}/Geode-sdk-real")
 
-# FIX: tell CMake where to find PlatformDetect.cmake
+# Add the SDK's cmake folder to the module path
 list(APPEND CMAKE_MODULE_PATH "${GEODE_SDK_PATH}/cmake")
 
-# load the SDK CMake files
-include("${GEODE_SDK_PATH}/cmake/Platform.cmake")
-include("${GEODE_SDK_PATH}/cmake/GeodeFile.cmake")
+# Load the SDK CMake files (use module names, NOT paths)
+include(Platform)
+include(GeodeFile)
 
-# build your mod
-add_geode_mod(DemonButton src/main.cpp)
+# Build your mod
+add_geode_mod(DemonButton
+    src/main.cpp
+)

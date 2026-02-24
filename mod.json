@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "description": "Adds a Demon face button that says hi. simple. my first mod.",
   "authors": ["xColtonGMDx"],
+  "developer": "xColtonGMDx",
   "gd": {
     "android": "2.2081"
   },

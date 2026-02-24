@@ -8,8 +8,5 @@
   "developer": "xColtonGMDx",
   "gd": {
     "android": "2.2081"
-  },
-  "dependencies": {
-    "geode.sdk": ">=2.0.0"
   }
 }

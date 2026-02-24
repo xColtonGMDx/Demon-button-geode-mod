@@ -20,7 +20,7 @@ public:
         );
 
         // attach to the main menu so it ACTUALLY shows on Android
-        auto menu = this->m_buttonMenu;
+        auto menu = this->m_mainMenu;
         menu->addChild(btn);
 
         // visible position

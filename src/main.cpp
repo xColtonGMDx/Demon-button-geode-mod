@@ -53,11 +53,8 @@ public:
 
         auto closeBtn = CCMenuItemSpriteExtra::create(
             CCSprite::createWithSpriteFrameName("GJ_closeBtn_001.png"),
-            layer,
-            [](CCObject*) {
-                auto scene = CCDirector::sharedDirector()->getRunningScene();
-                scene->removeChildByTag(999);
-            }
+            this,
+            menu_selector(HiButtonMenuLayer::onClose)
         );
 
         auto menu = CCMenu::create();
@@ -68,5 +65,11 @@ public:
         layer->setTag(999);
 
         CCDirector::sharedDirector()->getRunningScene()->addChild(layer, 999);
+    }
+
+    // --- ONLY ADDITION YOU ASKED FOR ---
+    void onClose(CCObject*) {
+        auto scene = CCDirector::sharedDirector()->getRunningScene();
+        scene->removeChildByTag(999);
     }
 };

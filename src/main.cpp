@@ -15,7 +15,7 @@ public:
             return true;
 
         // Create button sprite (Android-safe)
-        auto btnSpr = CCSprite::create("icon.png");   // <-- ADDED THIS LINE
+        auto btnSpr = CCSprite::create("icon.png");   // <-- THIS is the demon icon
 
         // Create button
         auto btn = CCMenuItemSpriteExtra::create(
@@ -67,7 +67,6 @@ public:
         CCDirector::sharedDirector()->getRunningScene()->addChild(layer, 999);
     }
 
-    // --- ONLY ADDITION YOU ASKED FOR ---
     void onClose(CCObject*) {
         auto scene = CCDirector::sharedDirector()->getRunningScene();
         scene->removeChildByTag(999);

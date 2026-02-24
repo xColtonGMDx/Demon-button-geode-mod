@@ -8,5 +8,9 @@
   "developer": "xColtonGMDx",
   "gd": {
     "android": "2.2081"
-  }
+  },
+  "resources": [
+    "resources/icon.png",
+    "resources/last.wav"
+  ]
 }

@@ -9,27 +9,22 @@ public:
         if (!MenuLayer::init())
             return false;
 
-        // Find the title sprite
         auto title = this->getChildByID("game-title");
         if (!title)
             return true;
 
-        // Create button sprite (Android-safe)
         auto btnSpr = CCSprite::createWithSpriteFrameName("GJ_button_01.png");
 
-        // Create button
         auto btn = CCMenuItemSpriteExtra::create(
             btnSpr,
             this,
             menu_selector(HiButtonMenuLayer::onHiButton)
         );
 
-        // Position the button next to the title
         auto pos = title->getPosition();
         float offset = title->getContentSize().width * title->getScale() / 2 + 50.f;
         btn->setPosition(pos.x + offset, pos.y);
 
-        // Add to menu
         auto menu = CCMenu::create();
         menu->addChild(btn);
         menu->setPosition(0, 0);
@@ -39,9 +34,7 @@ public:
     }
 
     void onHiButton(CCObject*) {
-        // --- Android-safe popup replacement ---
         auto layer = CCLayerColor::create({0, 0, 0, 180});
-
         auto winSize = CCDirector::sharedDirector()->getWinSize();
 
         auto bg = CCSprite::create("GJ_square01.png");
@@ -53,13 +46,12 @@ public:
         label->setPosition(winSize / 2);
         layer->addChild(label);
 
+        // CLOSE BUTTON (fixed)
+        auto closeSpr = CCSprite::createWithSpriteFrameName("GJ_closeBtn_001.png");
         auto closeBtn = CCMenuItemSpriteExtra::create(
-            CCSprite::createWithSpriteFrameName("GJ_closeBtn_001.png"),
-            layer,
-            [](CCObject*) {
-                auto scene = CCDirector::sharedDirector()->getRunningScene();
-                scene->removeChildByTag(999);
-            }
+            closeSpr,
+            this,
+            menu_selector(HiButtonMenuLayer::onClosePopup)
         );
 
         auto menu = CCMenu::create();
@@ -70,5 +62,10 @@ public:
         layer->setTag(999);
 
         CCDirector::sharedDirector()->getRunningScene()->addChild(layer, 999);
+    }
+
+    void onClosePopup(CCObject*) {
+        auto scene = CCDirector::sharedDirector()->getRunningScene();
+        scene->removeChildByTag(999);
     }
 };

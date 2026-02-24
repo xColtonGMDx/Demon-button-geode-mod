@@ -48,15 +48,10 @@ jobs:
     needs: ['build']
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Combine builds
-        uses: geode-sdk/build-geode-mod/combine@main
+      - uses: geode-sdk/build-geode-mod/combine@main
         id: build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}

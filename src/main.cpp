@@ -47,7 +47,7 @@ public:
         bg->setPosition(winSize / 2);
         layer->addChild(bg);
 
-        auto label = CCLabelBMFont::create("hi :) im useless", "bigFont.fnt");
+        auto label = CCLabelBMFont::create("hi :) im useless", "gjFont.fnt");
         label->setPosition(winSize / 2);
         layer->addChild(label);
 

@@ -15,8 +15,10 @@ public:
         if (!title)
             return true;
 
-        // Create a button
-        auto btnSpr = CCSprite::create("GJ_button_01.png");
+        // Create button sprite (Android-safe)
+        auto btnSpr = CCSprite::createWithSpriteFrameName("GJ_button_01.png");
+
+        // Create button
         auto btn = CCMenuItemSpriteExtra::create(
             btnSpr,
             this,
@@ -34,3 +36,10 @@ public:
         menu->setPosition(0, 0);
         this->addChild(menu);
 
+        return true;
+    }
+
+    void onHiButton(CCObject*) {
+        FLAlertLayer::create("Hi", "hi", "OK")->show();
+    }
+};

@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
+#include <Geode/loader/AlertLayer.hpp>
 
 using namespace geode::prelude;
 
@@ -9,28 +10,36 @@ public:
         if (!MenuLayer::init())
             return false;
 
-        // your demon PNG from resources/icon.png
-        auto btnSpr = CCSprite::create("icon.png");
+        // Find the title sprite
+        auto title = this->getChildByID("game-title");
+        if (!title)
+            return true;
 
-        // button that plays last.wav when clicked
+        // Create button sprite (Android-safe)
+        auto btnSpr = CCSprite::createWithSpriteFrameName("GJ_button_01.png");
+
+        // Create button
         auto btn = CCMenuItemSpriteExtra::create(
             btnSpr,
             this,
             menu_selector(HiButtonMenuLayer::onHiButton)
         );
 
-        // attach to the main menu so it ACTUALLY shows on Android
-        auto menu = this->m_mainMenu;
-        menu->addChild(btn);
+        // Position the button next to the title
+        auto pos = title->getPosition();
+        float offset = title->getContentSize().width * title->getScale() / 2 + 50.f;
+        btn->setPosition(pos.x + offset, pos.y);
 
-        // visible position
-        btn->setPosition({200, 200});
+        // Add to menu
+        auto menu = CCMenu::create();
+        menu->addChild(btn);
+        menu->setPosition(0, 0);
+        this->addChild(menu);
 
         return true;
     }
 
     void onHiButton(CCObject*) {
-        // play your audio file from resources/last.wav
-        FMODAudioEngine::sharedEngine()->playEffect("last.wav");
+        FLAlertLayer::create("Hi", "hi", "OK")->show();
     }
 };

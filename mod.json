@@ -11,7 +11,7 @@
   },
 "resources-dir": "resources",
 "resources": {
-  "icon.png": "resources/icon.png",
-  "last.wav": "resources/last.wav"
+  "icon": "icon.png",
+  "last": "resources/last.wav"
  }
 }

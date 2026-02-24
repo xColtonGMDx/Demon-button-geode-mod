@@ -1,2 +1,7 @@
 # Demon button geode mod
-Last repo ever. im done with coding.
+First ever geode mod :3
+this is where he makes a mod
+idk
+help me
+I compiled this on a phone using github actions
+pls help lol

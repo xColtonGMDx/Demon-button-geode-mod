@@ -22,5 +22,5 @@ else()
 endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
-geode_add_resources(${PROJECT_NAME} resources)
+geode_resources(${PROJECT_NAME} resources)
 setup_geode_mod(${PROJECT_NAME})

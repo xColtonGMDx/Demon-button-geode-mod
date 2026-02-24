@@ -15,7 +15,7 @@ public:
             return true;
 
         // Create button sprite (Android-safe)
-        auto btnSpr = CCSprite::createWithSpriteFrameName("GJ_button_01.png");
+        auto btnSpr = CCSprite::create("icon.png");   // <-- ADDED THIS LINE
 
         // Create button
         auto btn = CCMenuItemSpriteExtra::create(

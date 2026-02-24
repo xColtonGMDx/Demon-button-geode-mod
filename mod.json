@@ -1,5 +1,5 @@
 {
-  "geode": ">=2.0.0",
+  "geode": "*",
   "id": "xcoltongmdx.demon_button",
   "name": "Extreme Hi Button",
   "version": "1.0.0",

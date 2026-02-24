@@ -9,9 +9,7 @@
   "gd": {
     "android": "2.2081"
   },
-"resources-dir": "resources",
 "resources": {
-  "icon": "icon.png",
-  "last": "resources/last.wav"
+  "icon": "icon.png"
  }
 }

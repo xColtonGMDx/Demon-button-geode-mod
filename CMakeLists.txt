@@ -1,20 +1,26 @@
-cmake_minimum_required(VERSION 3.16)
-project(DemonButton)
+cmake_minimum_required(VERSION 3.21)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(CMAKE_SYSTEM_NAME STREQUAL "iOS" OR IOS)
+    set(CMAKE_OSX_ARCHITECTURES "arm64")
+else()
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+endif()
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-# You are building an ANDROID mod
-set(GEODE_TARGET_PLATFORM "Android64")
+project(Demonbutton VERSION 1.0.0)
 
-# Tell CMake where your SDK folder is
-set(GEODE_SDK_PATH "${CMAKE_SOURCE_DIR}/Geode-sdk-real")
-
-# Add the SDK's cmake folder to the module path
-list(APPEND CMAKE_MODULE_PATH "${GEODE_SDK_PATH}/cmake")
-
-# Load the SDK CMake files (use module names, NOT paths)
-include(Platform)
-include(GeodeFile)
-
-# Build your mod
-add_geode_mod(DemonButton
+add_library(${PROJECT_NAME} SHARED
     src/main.cpp
+    # Add any extra C++ source files here
 )
+
+if (NOT DEFINED ENV{GEODE_SDK})
+    message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")
+else()
+    message(STATUS "Found Geode: $ENV{GEODE_SDK}")
+endif()
+
+add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
+
+setup_geode_mod(${PROJECT_NAME})

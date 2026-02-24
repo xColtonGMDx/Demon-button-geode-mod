@@ -1,6 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
-#include <Geode/ui/FLAlertLayer.hpp>
+#include <Geode/loader/FLAlertLayer.hpp>
 
 using namespace geode::prelude;
 

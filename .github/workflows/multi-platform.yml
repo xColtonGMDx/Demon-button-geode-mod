@@ -47,7 +47,7 @@ jobs:
     needs: build
 
     steps:
-      - uses: geode-sdk/build-geode-mod/combine@main
+      - uses: geode-sdk/build-geode-mod/combine@v2
         id: build
 
       - name: Pack mod

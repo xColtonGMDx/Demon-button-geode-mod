@@ -1,5 +1,5 @@
 name: Build Geode Mod
-
+#I was dreaming about fucking Diddy going on epsteins island and im not even joking dude what is wrong with me💀
 on:
   workflow_dispatch:
   push:
@@ -43,13 +43,13 @@ jobs:
     if: always()
 
     steps:
-      - uses: geode-sdk/build-geode-mod/combine@v2
+      - uses: geode-sdk/build-geode-mod/combine@v1
         id: build
         with:
           platforms: windows,macos,android32,android64
 
       - name: Pack mod
-        uses: geode-sdk/actions/pack@v1
+        uses: geode-sdk/build-geode-mod/pack@v1
         with:
           input: ${{ steps.build.outputs.build-output }}
 

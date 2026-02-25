@@ -18,10 +18,6 @@ jobs:
         - name: macOS
           os: macos-latest
 
-        - name: iOS
-          os: macos-latest
-          target: iOS
-
         - name: Android32
           os: ubuntu-latest
           target: Android32
@@ -49,6 +45,8 @@ jobs:
     steps:
       - uses: geode-sdk/build-geode-mod/combine@v2
         id: build
+        with:
+          platforms: windows,macos,android32,android64
 
       - name: Pack mod
         uses: geode-sdk/actions/pack@v1
